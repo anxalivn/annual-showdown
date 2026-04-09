@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import {
   BarChart3,
-  Ban,
   BookOpen,
   ChevronLeft,
   Crown,
-  Dice5,
   Gamepad2,
   Shield,
   Trophy,
@@ -178,8 +176,7 @@ const QUICK_STATS = [
 
 const RuleCard: React.FC<{
   section: RuleSection
-  index: number
-}> = ({ section, index }) => {
+}> = ({ section }) => {
   const isHighlight = section.highlight
 
   return (
@@ -375,7 +372,7 @@ const TableOfContents: React.FC<{ onNavigate: (id: string) => void }> = ({
 }
 
 export default function RulesPage() {
-  const [activeSection, setActiveSection] = useState<string | null>(null)
+  const [, setActiveSection] = useState<string | null>(null)
 
   const handleNavigate = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -494,8 +491,8 @@ export default function RulesPage() {
       {/* Rule Sections */}
       <section className="px-4 sm:px-6 lg:px-8 mb-16 sm:mb-20">
         <div className="max-w-4xl mx-auto space-y-8">
-          {RULE_SECTIONS.map((section, idx) => (
-            <RuleCard key={section.id} section={section} index={idx} />
+          {RULE_SECTIONS.map((section) => (
+            <RuleCard key={section.id} section={section} />
           ))}
         </div>
       </section>

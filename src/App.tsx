@@ -6,16 +6,11 @@ import versusImg from './assets/images/versus.png'
 import {
   BarChart3,
   ChevronRight,
-  Copy,
   Crown,
   Dice5,
   Gamepad2,
   Medal,
-  Sparkles,
-  Swords,
   Trophy,
-  Wifi,
-  WifiOff,
 } from 'lucide-react'
 import { isSupabaseConfigured, supabase } from './lib/supabase'
 
@@ -157,28 +152,6 @@ const DRAFT_STEPS: DraftStep[] = [
   },
 ]
 
-const conceptPillars = [
-  {
-    title: 'Two rivals',
-    copy: 'Khangal vs Temuulen. No filler.',
-    icon: Swords,
-  },
-  {
-    title: 'One night',
-    copy: 'A single yearly title fight.',
-    icon: Sparkles,
-  },
-  {
-    title: 'Five games',
-    copy: 'Drafted BO5 with one random decider.',
-    icon: Gamepad2,
-  },
-  {
-    title: 'One champion',
-    copy: 'First to 3 writes the year’s story.',
-    icon: Crown,
-  },
-]
 
 const GAME_ART: Record<string, { code: string; gradient: string; accent: string; image: string }> = {
   CS2: {
@@ -653,8 +626,8 @@ function App() {
   const [draftState, setDraftState] = useState<DraftState>(createInitialDraftState)
   const [resultByGame, setResultByGame] = useState<Record<string, string>>({})
   const [roomId] = useState(getInitialRoomId)
-  const [syncStatus, setSyncStatus] = useState<SyncStatus>(isSupabaseConfigured ? 'connecting' : 'local')
-  const [syncNote, setSyncNote] = useState(
+  const [, setSyncStatus] = useState<SyncStatus>(isSupabaseConfigured ? 'connecting' : 'local')
+  const [, setSyncNote] = useState(
     isSupabaseConfigured ? `Connecting to room ${roomId}...` : 'Supabase not configured — running locally only.'
   )
   const [roomBootstrapped, setRoomBootstrapped] = useState(!isSupabaseConfigured)
@@ -683,15 +656,6 @@ function App() {
     }
   }, [draftState.lineup, resultByGame])
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') {
-      return `?room=${roomId}`
-    }
-
-    const nextUrl = new URL(window.location.href)
-    nextUrl.searchParams.set('room', roomId)
-    return nextUrl.toString()
-  }, [roomId])
 
   useEffect(() => {
     if (!supabase) {
@@ -833,8 +797,6 @@ function App() {
   const matchSummary = useMemo(() => computeMatchWinner(liveMatch.games, PLAYERS), [liveMatch.games])
   const p1Wins = matchSummary.scoreMap[PLAYERS[0].id] ?? 0
   const p2Wins = matchSummary.scoreMap[PLAYERS[1].id] ?? 0
-  const resolvedGames = liveMatch.games.filter((game) => game.winnerId).length
-
   const winner = getPlayerById(liveMatch.winnerId)
   const runnerUp = PLAYERS.find((player) => player.id !== liveMatch.winnerId)
 
@@ -867,11 +829,6 @@ function App() {
       },
     ]
   }, [draftState.lineup, liveMatch.finalScore, liveMatch.games, liveMatch.winnerId])
-
-  const titleCounts = PLAYERS.map((player) => ({
-    player,
-    titles: championHistory.filter((record) => record.championId === player.id).length,
-  }))
 
   const handleGameAction = (gameId: string) => {
     if (!currentStep) {
@@ -906,28 +863,6 @@ function App() {
     setResultByGame({})
   }
 
-  const statCards = [
-    {
-      label: 'Khangal titles',
-      value: `${titleCounts[0].titles}`,
-      note: 'Championship wins so far',
-    },
-    {
-      label: 'Temuulen titles',
-      value: `${titleCounts[1].titles}`,
-      note: 'Chasing the first crown',
-    },
-    {
-      label: 'Games resolved',
-      value: `${resolvedGames}/5`,
-      note: 'Live series progress',
-    },
-    {
-      label: 'Legacy status',
-      value: winner ? 'Started' : 'Loading',
-      note: 'The record book opens in 2026',
-    },
-  ]
 
   return (
     <main className="relative overflow-hidden pb-8 text-slate-100">
