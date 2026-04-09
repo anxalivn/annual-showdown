@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import khangalImg from './assets/images/khangal.png'
+import temuulenImg from './assets/images/temuulen.png'
 import {
   BarChart3,
   ChevronRight,
@@ -81,7 +83,7 @@ interface DraftStep {
   description: string
 }
 
-const EVENT_NAME = 'TAGS - The Annual Gamer Showdown'
+const EVENT_NAME = 'TAGS - The Annual Gamer Showdown 2026'
 const EVENT_YEAR = '2026'
 const DEFAULT_ROOM_ID = 'tags-2026-showdown'
 
@@ -277,29 +279,55 @@ const GAME_ART: Record<string, { code: string; gradient: string; accent: string;
 
 function ArenaHeroGraphic() {
   return (
-    <div className="glass-panel overflow-hidden p-4 sm:p-5">
-      <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto_1fr]">
-        <div className="rounded-3xl border border-cyan-400/25 bg-cyan-500/10 px-4 py-5 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-cyan-200">Player 1</p>
-          <p className="mt-2 text-2xl font-black text-white">Khangal</p>
+    <div className="overflow-hidden rounded-3xl border border-white/10">
+      {/* Full bleed hero with three columns */}
+      <div className="grid grid-cols-[1fr_auto_1fr] bg-slate-950">
+        {/* Khangal Image - Full size */}
+        <div className="relative h-96 sm:h-80 lg:h-96 overflow-hidden">
+          <img 
+            src={khangalImg} 
+            alt="Khangal" 
+            className="h-full w-full object-contain object-center" 
+          />
+          {/* Text overlay at bottom */}
+          <div className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-b from-transparent via-transparent to-slate-950 pb-4 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-cyan-300">Player 1</p>
+            <p className="mt-2 text-2xl font-black text-white drop-shadow-lg">Khangal</p>
+            <p className="mt-1 text-xs tracking-[0.2em] text-cyan-200">THE CHAMPION</p>
+          </div>
         </div>
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-slate-950/80 text-lg font-black tracking-[0.2em] text-white">
-          VS
+
+        {/* VS Badge in center */}
+        <div className="flex items-center justify-center border-l border-r border-white/10 bg-gradient-to-b from-slate-900/50 to-slate-950 px-2 sm:px-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-slate-950/80 text-sm font-black tracking-[0.2em] text-white sm:h-11 sm:w-11">
+            VS
+          </div>
         </div>
-        <div className="rounded-3xl border border-fuchsia-400/25 bg-fuchsia-500/10 px-4 py-5 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-fuchsia-200">Player 2</p>
-          <p className="mt-2 text-2xl font-black text-white">Temuulen</p>
+
+        {/* Temuulen Image - Full size */}
+        <div className="relative h-96 sm:h-80 lg:h-96 overflow-hidden">
+          <img 
+            src={temuulenImg} 
+            alt="Temuulen" 
+            className="h-full w-full object-contain object-center" 
+          />
+          {/* Text overlay at bottom */}
+          <div className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-b from-transparent via-transparent to-slate-950 pb-4 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-fuchsia-300">Player 2</p>
+            <p className="mt-2 text-2xl font-black text-white drop-shadow-lg">Temuulen</p>
+            <p className="mt-1 text-xs tracking-[0.2em] text-fuchsia-200">THE RIVAL</p>
+          </div>
         </div>
       </div>
 
-      <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-center">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-slate-400">{EVENT_YEAR}</p>
-        <p className="mt-1 text-sm font-semibold text-white">Winner takes the crown.</p>
+      {/* Footer Section */}
+      <div className="border-t border-white/10 bg-gradient-to-r from-cyan-500/5 via-transparent to-fuchsia-500/5 px-6 py-3 text-center">
+        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">{EVENT_YEAR} • 04/18 • ANNUAL SHOWDOWN</p>
+        <p className="mt-1 text-sm font-semibold text-white sm:text-base">Winner takes the crown.</p>
       </div>
     </div>
   )
 }
-
 function GameBanner({ gameName, compact = false }: { gameName: string; compact?: boolean }) {
   const art = GAME_ART[gameName] ?? {
     code: 'ARENA',
@@ -800,39 +828,9 @@ function App() {
       return next
     })
   }
-
   const resetExperience = () => {
     setDraftState(createInitialDraftState())
     setResultByGame({})
-  }
-
-  const syncBadgeClass =
-    syncStatus === 'live'
-      ? 'border-emerald-400/30 bg-emerald-500/10 text-emerald-100'
-      : syncStatus === 'error'
-        ? 'border-rose-400/30 bg-rose-500/10 text-rose-100'
-        : syncStatus === 'connecting'
-          ? 'border-cyan-400/30 bg-cyan-500/10 text-cyan-100'
-          : 'border-amber-400/30 bg-amber-500/10 text-amber-100'
-
-  const syncLabel =
-    syncStatus === 'live' ? 'Live sync' : syncStatus === 'error' ? 'Sync issue' : syncStatus === 'connecting' ? 'Connecting' : 'Local mode'
-
-  const handleCopyShareLink = async () => {
-    if (typeof navigator === 'undefined' || !navigator.clipboard) {
-      setSyncNote('Clipboard is not available in this browser.')
-      return
-    }
-
-    try {
-      await navigator.clipboard.writeText(shareUrl)
-      setCopiedLink(true)
-      setSyncNote('Share link copied — send it to your friend.')
-    } catch (error) {
-      console.error(error)
-      setSyncStatus('error')
-      setSyncNote('Could not copy the room link.')
-    }
   }
 
   const statCards = [
@@ -915,34 +913,7 @@ function App() {
               >
                 View Champions
               </a>
-            </div>
-
-            <div className="glass-panel mt-4 px-4 py-4">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">Shared room</p>
-                  <p className="mt-1 text-sm font-semibold text-white">{roomId}</p>
-                  <p className="mt-1 text-xs text-slate-400">{syncNote}</p>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] ${syncBadgeClass}`}>
-                    {syncStatus === 'live' ? <Wifi className="h-3.5 w-3.5" /> : <WifiOff className="h-3.5 w-3.5" />}
-                    {syncLabel}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={handleCopyShareLink}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-100 transition hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/10"
-                  >
-                    <Copy className="h-3.5 w-3.5" />
-                    {copiedLink ? 'Copied' : 'Copy room link'}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-7 grid gap-3 sm:grid-cols-3">
+            </div>            <div className="mt-7 grid gap-3 sm:grid-cols-3">
               {[
                 { label: 'Format', value: 'Ban • Pick • Decider' },
                 { label: 'Goal', value: 'First to 3' },
@@ -975,29 +946,7 @@ function App() {
         </div>
       </section>
 
-      <section id="about" className="section-shell py-8 sm:py-10">
-        <SectionHeading
-          eyebrow="About the Event"
-          title="Two rivals. One night. Five games. One champion."
-          description="A single yearly matchup to decide who owns 2026."
-        />
-
-        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {conceptPillars.map((pillar) => {
-            const Icon = pillar.icon
-
-            return (
-              <div key={pillar.title} className="glass-panel p-5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-cyan-100">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-white">{pillar.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-300">{pillar.copy}</p>
-              </div>
-            )
-          })}
-        </div>
-      </section>
+   
 
       <section className="section-shell py-8 sm:py-10">
         <div className="section-divider" />
@@ -1287,34 +1236,6 @@ function App() {
               </div>
             )
           })}
-        </div>
-      </section>
-
-      <section className="section-shell py-10 sm:py-12">
-        <SectionHeading
-          eyebrow="Stats & Legacy"
-          title="Legacy starts in 2026"
-          description="Small board now. Heavy history later."
-        />
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {statCards.map((card) => (
-            <div key={card.label} className="glass-panel p-5">
-              <p className="text-xs uppercase tracking-[0.28em] text-slate-400">{card.label}</p>
-              <p className="mt-3 text-3xl font-black text-white">{card.value}</p>
-              <p className="mt-2 text-sm text-slate-300">{card.note}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="glass-panel mt-6 flex items-center gap-4 p-5 sm:p-6">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-amber-100">
-            <Trophy className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">Final word</p>
-            <p className="mt-1 text-lg font-semibold text-white">One night. Five games. One champion.</p>
-          </div>
         </div>
       </section>
     </main>
