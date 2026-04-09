@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import {
   BarChart3,
-  Ban,
   BookOpen,
   ChevronLeft,
   Crown,
-  Dice5,
   Gamepad2,
   Shield,
   Trophy,
@@ -179,7 +177,7 @@ const QUICK_STATS = [
 const RuleCard: React.FC<{
   section: RuleSection
   index: number
-}> = ({ section, index }) => {
+}> = ({ section }) => {
   const isHighlight = section.highlight
 
   return (
@@ -375,13 +373,12 @@ const TableOfContents: React.FC<{ onNavigate: (id: string) => void }> = ({
 }
 
 export default function RulesPage() {
-  const [activeSection, setActiveSection] = useState<string | null>(null)
 
   const handleNavigate = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
-      setActiveSection(sectionId)
+
     }
   }
 
@@ -393,7 +390,7 @@ export default function RulesPage() {
         if (element) {
           const rect = element.getBoundingClientRect()
           if (rect.top < window.innerHeight / 2) {
-            setActiveSection(sectionId)
+    
           }
         }
       }
