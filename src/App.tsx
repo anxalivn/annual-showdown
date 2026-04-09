@@ -1314,37 +1314,32 @@ function App() {
               </div>
             )
           })}        </div>
-      </section>
-
-      {/* Champion Celebration Overlay */}
+      </section>      {/* Champion Celebration Overlay */}
       {showChampionPopup && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur">
-          <div className={`champion-popup ${isExiting ? 'exiting' : ''} relative`}>
-            {/* Background glow */}
-            <div className="absolute -inset-8 bg-gradient-radial from-yellow-400/40 via-amber-500/20 to-transparent rounded-full blur-3xl -z-10" />
-            
-            {/* Gold ring */}
-            <div className="absolute inset-0 rounded-full border-2 border-yellow-400/60 shadow-[0_0_40px_rgba(250,204,21,0.5)] animate-pulse" />
+        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur px-4 sm:px-0">
+          <div className={`champion-popup ${isExiting ? 'exiting' : ''} relative w-full max-w-md sm:max-w-lg`}>
+            {/* Background glow - hidden on mobile for performance */}
+            <div className="hidden sm:block absolute -inset-8 bg-gradient-radial from-yellow-400/40 via-amber-500/20 to-transparent rounded-full blur-3xl -z-10" />
+              {/* Gold ring */}
+            <div className="absolute inset-0 rounded-full border-2 border-yellow-400/60 shadow-[0_0_20px_rgba(250,204,21,0.5)] sm:shadow-[0_0_40px_rgba(250,204,21,0.5)] animate-pulse" />
             
             {/* Main card */}
-            <div className="relative bg-gradient-to-b from-slate-950 to-slate-900 rounded-full p-12 sm:p-16 text-center border border-yellow-400/40 shadow-2xl">
-              {/* Crown icon */}
-              <div className="mb-4 flex justify-center">
-                <Crown className="h-16 w-16 text-yellow-400 drop-shadow-[0_0_20px_rgba(250,204,21,0.6)]" />
+            <div className="relative bg-gradient-to-b from-slate-950 to-slate-900 rounded-full p-8 sm:p-12 md:p-16 text-center border border-yellow-400/40 shadow-2xl">              {/* Crown icon */}
+              <div className="mb-3 sm:mb-4 flex justify-center">
+                <Crown className="h-12 w-12 sm:h-16 sm:w-16 text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.6)] sm:drop-shadow-[0_0_20px_rgba(250,204,21,0.6)]" />
               </div>
-              
-              {/* Winner name */}
-              <h1 className="champion-name text-4xl sm:text-6xl font-black text-white drop-shadow-[0_0_30px_rgba(250,204,21,0.8)] mb-2">
+                {/* Winner name */}
+              <h1 className="champion-name text-3xl sm:text-5xl md:text-6xl font-black text-white drop-shadow-[0_0_20px_rgba(250,204,21,0.8)] sm:drop-shadow-[0_0_30px_rgba(250,204,21,0.8)] mb-1 sm:mb-2 line-clamp-2">
                 {winner?.name}
               </h1>
               
               {/* Victory text */}
-              <p className="text-lg sm:text-xl text-yellow-200 font-semibold drop-shadow-lg">
+              <p className="text-sm sm:text-lg md:text-xl text-yellow-200 font-semibold drop-shadow-lg">
                 WINS THE {EVENT_YEAR} CROWN
               </p>
               
               {/* Score */}
-              <p className="mt-4 text-2xl text-amber-300 font-bold drop-shadow-lg">
+              <p className="mt-3 sm:mt-4 text-xl sm:text-2xl text-amber-300 font-bold drop-shadow-lg">
                 {liveMatch.finalScore}
               </p>
             </div>
