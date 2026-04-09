@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import khangalImg from './assets/images/khangal.png'
 import temuulenImg from './assets/images/temuulen.png'
+import championbeltImg from './assets/images/championbelt.png'
+import versusImg from './assets/images/versus.png'
 import {
   BarChart3,
   ChevronRight,
@@ -279,51 +281,97 @@ const GAME_ART: Record<string, { code: string; gradient: string; accent: string;
 
 function ArenaHeroGraphic() {
   return (
-    <div className="overflow-hidden rounded-3xl border border-white/10">
-      {/* Full bleed hero with three columns */}
-      <div className="grid grid-cols-[1fr_auto_1fr] bg-slate-950">
-        {/* Khangal Image - Full size */}
-        <div className="relative h-96 sm:h-80 lg:h-96 overflow-hidden">
+    <div className="relative overflow-visible">
+      {/* Background glow - circular, extends outside container */}
+      <div className="absolute inset-0 -z-10 pointer-events-none" style={{ transform: 'translateY(-50%)' }}>
+        {/* Inner glow - intense red/purple */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-red-500/50 via-fuchsia-500/30 to-transparent rounded-full blur-3xl" />
+        
+        {/* Outer glow - softer, wider spread */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-gradient-radial from-red-600/25 via-fuchsia-600/12 to-transparent rounded-full blur-2xl" />
+      </div>
+
+      {/* Full bleed hero with three columns - NO CONTAINER */}
+      <div className="grid grid-cols-[1fr_auto_1fr] bg-slate-950">{/* Khangal Image - Full size with intense fire effects */}
+        <div className="relative h-96 sm:h-[500px] lg:h-[500px] overflow-hidden">
+          {/* Smooth diffuse gradient background */}
+          <div className="absolute inset-0 bg-gradient-radial from-red-950/25 via-red-950/10 via-50% to-transparent blur-2xl" />
+          <div className="absolute inset-0 bg-gradient-radial from-orange-900/15 via-transparent to-transparent" />
+          
+          {/* Intense fire glow on left */}
+          <div className="absolute -bottom-20 -left-20 h-80 w-80 bg-gradient-radial from-orange-500/40 via-red-500/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-32 -left-32 h-96 w-96 bg-gradient-radial from-red-600/30 via-orange-600/10 to-transparent rounded-full blur-2xl pointer-events-none animate-pulse" />
+          
+          {/* Player image */}
           <img 
             src={khangalImg} 
             alt="Khangal" 
-            className="h-full w-full object-contain object-center" 
+            className="h-full w-full object-contain object-center relative z-10" 
           />
-          {/* Text overlay at bottom */}
-          <div className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-b from-transparent via-transparent to-slate-950 pb-4 text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-cyan-300">Player 1</p>
-            <p className="mt-2 text-2xl font-black text-white drop-shadow-lg">Khangal</p>
-            <p className="mt-1 text-xs tracking-[0.2em] text-cyan-200">THE CHAMPION</p>
+          
+          {/* Text overlay at bottom with glow */}
+          <div className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-b from-transparent via-transparent to-slate-950 pb-4 text-center z-20">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-cyan-300 drop-shadow-lg">Player 1</p>
+            <p className="mt-2 text-2xl font-black text-white drop-shadow-[0_0_20px_rgba(6,182,212,0.6)] animate-pulse">Khangal</p>
+            <p className="mt-1 text-xs tracking-[0.2em] text-cyan-200 drop-shadow-lg">THE CHAMPION</p>
           </div>
-        </div>
-
-        {/* VS Badge in center */}
-        <div className="flex items-center justify-center border-l border-r border-white/10 bg-gradient-to-b from-slate-900/50 to-slate-950 px-2 sm:px-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-slate-950/80 text-sm font-black tracking-[0.2em] text-white sm:h-11 sm:w-11">
-            VS
+          
+          {/* Fire lines effect */}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-orange-500/20 via-red-500/10 to-transparent pointer-events-none z-5" />
+        </div>        {/* VS Badge in center - INTENSE */}
+        <div className="flex items-center justify-center bg-slate-950 px-2 sm:px-3 relative overflow-hidden">
+          {/* Center fire effect */}
+          <div className="absolute inset-0 bg-gradient-radial from-orange-500/30 via-red-500/10 to-transparent rounded-full blur-2xl" />
+          <div className="absolute inset-0 opacity-50">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-radial from-yellow-400/40 to-transparent rounded-full blur-3xl animate-pulse" />
           </div>
-        </div>
-
-        {/* Temuulen Image - Full size */}
-        <div className="relative h-96 sm:h-80 lg:h-96 overflow-hidden">
+          
+          <img 
+            src={versusImg} 
+            alt="VS"
+            className="h-16 w-16 object-contain relative z-10 drop-shadow-[0_0_20px_rgba(251,146,60,0.5)]"
+          />
+        </div>{/* Temuulen Image - Full size with intense fire effects */}
+        <div className="relative h-96 sm:h-[500px] lg:h-[500px] overflow-hidden">
+          {/* Smooth diffuse gradient background */}
+          <div className="absolute inset-0 bg-gradient-radial from-fuchsia-950/25 via-fuchsia-950/10 via-50% to-transparent blur-2xl" />
+          <div className="absolute inset-0 bg-gradient-radial from-pink-900/15 via-transparent to-transparent" />
+          
+          {/* Intense fire glow on right */}
+          <div className="absolute -bottom-20 -right-20 h-80 w-80 bg-gradient-radial from-fuchsia-500/40 via-pink-500/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-32 -right-32 h-96 w-96 bg-gradient-radial from-pink-600/30 via-fuchsia-600/10 to-transparent rounded-full blur-2xl pointer-events-none animate-pulse" />
+          
+          {/* Player image */}
           <img 
             src={temuulenImg} 
             alt="Temuulen" 
-            className="h-full w-full object-contain object-center" 
+            className="h-full w-full object-contain object-center relative z-10" 
           />
-          {/* Text overlay at bottom */}
-          <div className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-b from-transparent via-transparent to-slate-950 pb-4 text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-fuchsia-300">Player 2</p>
-            <p className="mt-2 text-2xl font-black text-white drop-shadow-lg">Temuulen</p>
-            <p className="mt-1 text-xs tracking-[0.2em] text-fuchsia-200">THE RIVAL</p>
+          
+          {/* Text overlay at bottom with glow */}
+          <div className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-b from-transparent via-transparent to-slate-950 pb-4 text-center z-20">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-fuchsia-300 drop-shadow-lg">Player 2</p>
+            <p className="mt-2 text-2xl font-black text-white drop-shadow-[0_0_20px_rgba(217,70,239,0.6)] animate-pulse">Temuulen</p>
+            <p className="mt-1 text-xs tracking-[0.2em] text-fuchsia-200 drop-shadow-lg">THE RIVAL</p>
           </div>
+          
+          {/* Fire lines effect */}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-pink-500/20 via-fuchsia-500/10 to-transparent pointer-events-none z-5" />
         </div>
       </div>
 
-      {/* Footer Section */}
-      <div className="border-t border-white/10 bg-gradient-to-r from-cyan-500/5 via-transparent to-fuchsia-500/5 px-6 py-3 text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">{EVENT_YEAR} • 04/18 • ANNUAL SHOWDOWN</p>
-        <p className="mt-1 text-sm font-semibold text-white sm:text-base">Winner takes the crown.</p>
+      {/* Footer Section - INTENSE with fire */}
+      <div className="relative bg-gradient-to-r from-red-950/30 via-slate-950 to-pink-950/30 px-6 py-4 text-center overflow-hidden">
+        {/* Background fire effect */}
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute top-0 left-1/4 w-64 h-24 bg-gradient-radial from-orange-500/30 to-transparent blur-3xl" />
+          <div className="absolute top-0 right-1/4 w-64 h-24 bg-gradient-radial from-pink-500/30 to-transparent blur-3xl" />
+        </div>
+        
+        <div className="relative z-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-300 drop-shadow-lg">{EVENT_YEAR} • 04/18 • ANNUAL SHOWDOWN</p>
+          <p className="mt-1 text-sm font-semibold text-white sm:text-base drop-shadow-[0_0_10px_rgba(251,146,60,0.4)]">Winner takes the crown.</p>
+        </div>
       </div>
     </div>
   )
@@ -561,17 +609,42 @@ function getGameStatusMeta(game: Game) {
 function SectionHeading({
   eyebrow,
   title,
+  image,
   description,
 }: {
   eyebrow: string
   title: string
+  image?: boolean
   description: string
 }) {
   return (
-    <div className="max-w-3xl">
-      <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">{eyebrow}</p>
-      <h2 className="mt-3 text-balance text-3xl font-black tracking-tight text-white sm:text-4xl">{title}</h2>
-      <p className="mt-3 text-base text-slate-300">{description}</p>
+    <div className="grid items-center gap-8 md:grid-cols-2">
+      
+      {/* LEFT: Text */}
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">
+          {eyebrow}
+        </p>
+
+        <h2 className="mt-3 text-balance text-3xl font-black tracking-tight text-white sm:text-4xl">
+          {title}
+        </h2>
+
+        <p className="mt-3 text-base text-slate-300">
+          {description}
+        </p>
+      </div>
+
+      {/* RIGHT: Image */}
+      {image && (
+        <div className="relative flex justify-center md:justify-end">
+          <img
+            src={championbeltImg}
+            alt="TAGS Championship Belt"
+            className="h-auto w-full max-w-md object-contain drop-shadow-[0_0_40px_rgba(251,146,60,0.4)]"
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -870,11 +943,30 @@ function App() {
               <p className="text-sm font-semibold text-white">{EVENT_NAME}</p>
               <p className="text-xs text-slate-400">Annual 1v1 title match • {EVENT_YEAR}</p>
             </div>
-          </div>
-          <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
+          </div>          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
             <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">BO5</span>
             <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">2 players</span>
             <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Once per year</span>
+            <a
+              href="#requirements"
+              className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-4 py-2 text-xs font-semibold uppercase text-emerald-100 transition hover:-translate-y-0.5 hover:bg-emerald-500/20"
+            >
+              Requirements
+            </a>
+            <a
+              href="#rules"
+              className="rounded-full border border-fuchsia-400/40 bg-fuchsia-500/15 px-4 py-2 text-xs font-semibold uppercase text-fuchsia-100 transition hover:-translate-y-0.5 hover:bg-fuchsia-500/20"
+            >
+              Official Rules
+            </a>
+            <a
+              href="https://discord.gg/rekBxgWT"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-indigo-400/40 bg-indigo-500/15 px-4 py-2 text-xs font-semibold uppercase text-indigo-100 transition hover:-translate-y-0.5 hover:bg-indigo-500/20"
+            >
+              Discord
+            </a>
           </div>
         </div>
       </header>
@@ -897,9 +989,7 @@ function App() {
               <span className="rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-cyan-100">Khangal</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">VS</span>
               <span className="rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1 text-fuchsia-100">Temuulen</span>
-            </div>
-
-            <div className="mt-7 flex flex-wrap gap-3">
+            </div>            <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href="#draft"
                 className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-5 py-3 text-sm font-semibold text-cyan-50 transition hover:-translate-y-0.5 hover:bg-cyan-500/20"
@@ -913,7 +1003,13 @@ function App() {
               >
                 View Champions
               </a>
-            </div>            <div className="mt-7 grid gap-3 sm:grid-cols-3">
+              <a
+                href="#rules"
+                className="inline-flex items-center gap-2 rounded-full border border-fuchsia-400/40 bg-fuchsia-500/15 px-5 py-3 text-sm font-semibold text-fuchsia-50 transition hover:-translate-y-0.5 hover:bg-fuchsia-500/20"
+              >
+                Official Rules
+              </a>
+            </div><div className="mt-7 grid gap-3 sm:grid-cols-3">
               {[
                 { label: 'Format', value: 'Ban • Pick • Decider' },
                 { label: 'Goal', value: 'First to 3' },
@@ -1194,17 +1290,18 @@ function App() {
               </div>
             )}
           </div>
-        </div>
-      </section>
+        </div>      </section>      <section id="champions" className="section-shell py-10 sm:py-12">
+        <div className="mb-12">
+          <SectionHeading
+            eyebrow="Champions History"
+            title="The wall of champions starts here"
+            image={true}
+            description="2026 opens the archive."
+          />
+        </div>       
+      
 
-      <section id="champions" className="section-shell py-10 sm:py-12">
-        <SectionHeading
-          eyebrow="Champions History"
-          title="The wall of champions starts here"
-          description="2026 opens the archive."
-        />
-
-        <div className="mt-8 grid gap-4">
+        <div className="mt-12 grid gap-4">
           {championHistory.map((record) => {
             const championName = getPlayerById(record.championId)?.name
             const opponentName = getPlayerById(record.opponentId)?.name
