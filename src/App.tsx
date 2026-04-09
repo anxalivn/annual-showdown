@@ -274,12 +274,11 @@ function ArenaHeroGraphic() {
           {/* Intense fire glow on left */}
           <div className="absolute -bottom-20 -left-20 h-80 w-80 bg-gradient-radial from-orange-500/40 via-red-500/20 to-transparent rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 h-96 w-96 bg-gradient-radial from-red-600/30 via-orange-600/10 to-transparent rounded-full blur-2xl pointer-events-none animate-pulse" />
-          
-          {/* Player image */}
+            {/* Player image */}
           <img 
             src={khangalImg} 
             alt="Khangal" 
-            className="h-full w-full object-contain object-center relative z-10" 
+            className="h-full w-full object-cover object-center relative z-10" 
           />
           
           {/* Text overlay at bottom with glow */}
@@ -314,12 +313,11 @@ function ArenaHeroGraphic() {
           {/* Intense fire glow on right */}
           <div className="absolute -bottom-20 -right-20 h-80 w-80 bg-gradient-radial from-fuchsia-500/40 via-pink-500/20 to-transparent rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -right-32 h-96 w-96 bg-gradient-radial from-pink-600/30 via-fuchsia-600/10 to-transparent rounded-full blur-2xl pointer-events-none animate-pulse" />
-          
-          {/* Player image */}
+            {/* Player image */}
           <img 
             src={temuulenImg} 
             alt="Temuulen" 
-            className="h-full w-full object-contain object-center relative z-10" 
+            className="h-full w-full object-cover object-center relative z-10" 
           />
           
           {/* Text overlay at bottom with glow */}
@@ -923,28 +921,27 @@ function App() {
             <div>
               <p className="text-sm font-semibold text-white">{EVENT_NAME}</p>
               <p className="text-xs text-slate-400">Annual 1v1 title match • {EVENT_YEAR}</p>
-            </div>
-          </div>          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-slate-300">
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">BO5</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">2 players</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Once per year</span>
+            </div>          </div>          <div className="flex flex-wrap items-center justify-end gap-1 sm:gap-2 text-xs font-semibold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-slate-300">
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 sm:px-3 sm:py-1 text-[10px] sm:text-xs">BO5</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 sm:px-3 sm:py-1 text-[10px] sm:text-xs hidden sm:inline-block">2 players</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 sm:px-3 sm:py-1 text-[10px] sm:text-xs hidden sm:inline-block">Once per year</span>
             <a
               href="#requirements"
-              className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-4 py-2 text-xs font-semibold uppercase text-emerald-100 transition hover:-translate-y-0.5 hover:bg-emerald-500/20"
+              className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-2 sm:px-4 py-1 sm:py-2 text-[10px] sm:text-xs font-semibold uppercase text-emerald-100 transition hover:-translate-y-0.5 hover:bg-emerald-500/20 whitespace-nowrap"
             >
-              Requirements
+              Req.
             </a>
             <a
               href="#rules"
-              className="rounded-full border border-fuchsia-400/40 bg-fuchsia-500/15 px-4 py-2 text-xs font-semibold uppercase text-fuchsia-100 transition hover:-translate-y-0.5 hover:bg-fuchsia-500/20"
+              className="rounded-full border border-fuchsia-400/40 bg-fuchsia-500/15 px-2 sm:px-4 py-1 sm:py-2 text-[10px] sm:text-xs font-semibold uppercase text-fuchsia-100 transition hover:-translate-y-0.5 hover:bg-fuchsia-500/20 whitespace-nowrap"
             >
-              Official Rules
+              Rules
             </a>
             <a
               href="https://discord.gg/rekBxgWT"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-indigo-400/40 bg-indigo-500/15 px-4 py-2 text-xs font-semibold uppercase text-indigo-100 transition hover:-translate-y-0.5 hover:bg-indigo-500/20"
+              className="rounded-full border border-indigo-400/40 bg-indigo-500/15 px-2 sm:px-4 py-1 sm:py-2 text-[10px] sm:text-xs font-semibold uppercase text-indigo-100 transition hover:-translate-y-0.5 hover:bg-indigo-500/20 whitespace-nowrap"
             >
               Discord
             </a>
@@ -964,31 +961,29 @@ function App() {
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">
               One rivalry. One BO5. One crown.
-            </p>
-
-            <div className="mt-6 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em]">
-              <span className="rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-cyan-100">Khangal</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">VS</span>
-              <span className="rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1 text-fuchsia-100">Temuulen</span>
-            </div>            <div className="mt-7 flex flex-wrap gap-3">
+            </p>            <div className="mt-6 flex flex-wrap items-center justify-start gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] sm:tracking-[0.28em]">
+              <span className="rounded-full border border-cyan-400/30 bg-cyan-500/10 px-2 sm:px-3 py-1 text-cyan-100">Khangal</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-2 sm:px-3 py-1 text-slate-200">VS</span>
+              <span className="rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-2 sm:px-3 py-1 text-fuchsia-100">Temuulen</span>
+            </div>            <div className="mt-7 flex flex-wrap gap-2 sm:gap-3">
               <a
                 href="#draft"
-                className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-5 py-3 text-sm font-semibold text-cyan-50 transition hover:-translate-y-0.5 hover:bg-cyan-500/20"
+                className="inline-flex items-center gap-1 sm:gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-cyan-50 transition hover:-translate-y-0.5 hover:bg-cyan-500/20 whitespace-nowrap"
               >
                 Start Draft
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
               </a>
               <a
                 href="#champions"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/10 whitespace-nowrap"
               >
-                View Champions
+                Champions
               </a>
               <a
                 href="#rules"
-                className="inline-flex items-center gap-2 rounded-full border border-fuchsia-400/40 bg-fuchsia-500/15 px-5 py-3 text-sm font-semibold text-fuchsia-50 transition hover:-translate-y-0.5 hover:bg-fuchsia-500/20"
+                className="inline-flex items-center gap-2 rounded-full border border-fuchsia-400/40 bg-fuchsia-500/15 px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-fuchsia-50 transition hover:-translate-y-0.5 hover:bg-fuchsia-500/20 whitespace-nowrap"
               >
-                Official Rules
+                Rules
               </a>
             </div><div className="mt-7 grid gap-3 sm:grid-cols-3">
               {[
