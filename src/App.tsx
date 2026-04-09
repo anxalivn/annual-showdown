@@ -3,6 +3,7 @@ import khangalImg from './assets/images/khangal.png'
 import temuulenImg from './assets/images/temuulen.png'
 import championbeltImg from './assets/images/championbelt.png'
 import versusImg from './assets/images/versus.png'
+import './App.css'
 import {
   BarChart3,
   ChevronRight,
@@ -628,7 +629,10 @@ function App() {
   const [roomId] = useState(getInitialRoomId)
   const [roomBootstrapped, setRoomBootstrapped] = useState(!isSupabaseConfigured)
   const [copiedLink, setCopiedLink] = useState(false)
+  const [showChampionPopup, setShowChampionPopup] = useState(false)
+  const [isExiting, setIsExiting] = useState(false)
   const lastSyncedSnapshotRef = useRef('')
+  const prevWinnerRef = useRef<string | undefined>(undefined)
 
   const currentStep = DRAFT_STEPS[draftState.currentStepIndex]
   const currentPlayer = currentStep?.playerId ? getPlayerById(currentStep.playerId) : undefined
@@ -775,11 +779,65 @@ function App() {
   useEffect(() => {
     if (!copiedLink) {
       return
-    }
-
-    const timeoutId = window.setTimeout(() => setCopiedLink(false), 1800)
+    }    const timeoutId = window.setTimeout(() => setCopiedLink(false), 1800)
     return () => window.clearTimeout(timeoutId)
   }, [copiedLink])
+  // Champion celebration effect
+  useEffect(() => {
+    if (!liveMatch.winnerId) {
+      return
+    }
+
+    if (liveMatch.winnerId !== prevWinnerRef.current) {
+      prevWinnerRef.current = liveMatch.winnerId
+      
+      // Small delay to ensure DOM is ready
+      const startTimer = setTimeout(() => {
+        setShowChampionPopup(true)
+        
+        // Generate fireworks
+        const generateFireworks = () => {
+          for (let i = 0; i < 30; i++) {
+            const firework = document.createElement('div')
+            firework.className = 'firework'
+            
+            const angle = (Math.PI * 2 * i) / 30
+            const velocity = 6 + Math.random() * 8
+            const tx = Math.cos(angle) * velocity * 50
+            const ty = Math.sin(angle) * velocity * 50
+            
+            firework.style.setProperty('--tx', `${tx}px`)
+            firework.style.setProperty('--ty', `${ty}px`)
+            firework.style.left = window.innerWidth / 2 + 'px'
+            firework.style.top = window.innerHeight / 2 + 'px'
+            
+            const colors = ['#fbbf24', '#f59e0b', '#d97706', '#fb923c', '#fbbf24', '#fef08a', '#ffbf00']
+            const bgColor = colors[Math.floor(Math.random() * colors.length)]
+            
+            firework.innerHTML = `<div style="width: 10px; height: 10px; background-color: ${bgColor}; border-radius: 50%; box-shadow: 0 0 8px ${bgColor};"></div>`
+            document.body.appendChild(firework)
+            
+            setTimeout(() => firework.remove(), 1200)
+          }
+        }
+        
+        generateFireworks()
+        
+        // Auto-hide popup after 4.5 seconds
+        const hideTimer = setTimeout(() => {
+          setIsExiting(true)
+          setTimeout(() => {
+            setShowChampionPopup(false)
+            setIsExiting(false)
+          }, 500)
+        }, 4500)
+        
+        return () => clearTimeout(hideTimer)
+      }, 100)
+      
+      return () => clearTimeout(startTimer)
+    }
+  }, [liveMatch.winnerId])
 
   const matchSummary = useMemo(() => computeMatchWinner(liveMatch.games, PLAYERS), [liveMatch.games])
   const p1Wins = matchSummary.scoreMap[PLAYERS[0].id] ?? 0
@@ -1255,9 +1313,44 @@ function App() {
                 </div>
               </div>
             )
-          })}
-        </div>
+          })}        </div>
       </section>
+
+      {/* Champion Celebration Overlay */}
+      {showChampionPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur">
+          <div className={`champion-popup ${isExiting ? 'exiting' : ''} relative`}>
+            {/* Background glow */}
+            <div className="absolute -inset-8 bg-gradient-radial from-yellow-400/40 via-amber-500/20 to-transparent rounded-full blur-3xl -z-10" />
+            
+            {/* Gold ring */}
+            <div className="absolute inset-0 rounded-full border-2 border-yellow-400/60 shadow-[0_0_40px_rgba(250,204,21,0.5)] animate-pulse" />
+            
+            {/* Main card */}
+            <div className="relative bg-gradient-to-b from-slate-950 to-slate-900 rounded-full p-12 sm:p-16 text-center border border-yellow-400/40 shadow-2xl">
+              {/* Crown icon */}
+              <div className="mb-4 flex justify-center">
+                <Crown className="h-16 w-16 text-yellow-400 drop-shadow-[0_0_20px_rgba(250,204,21,0.6)]" />
+              </div>
+              
+              {/* Winner name */}
+              <h1 className="champion-name text-4xl sm:text-6xl font-black text-white drop-shadow-[0_0_30px_rgba(250,204,21,0.8)] mb-2">
+                {winner?.name}
+              </h1>
+              
+              {/* Victory text */}
+              <p className="text-lg sm:text-xl text-yellow-200 font-semibold drop-shadow-lg">
+                WINS THE {EVENT_YEAR} CROWN
+              </p>
+              
+              {/* Score */}
+              <p className="mt-4 text-2xl text-amber-300 font-bold drop-shadow-lg">
+                {liveMatch.finalScore}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
