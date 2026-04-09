@@ -325,13 +325,14 @@ function ArenaHeroGraphic() {
           <div className="absolute inset-0 opacity-50">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-radial from-yellow-400/40 to-transparent rounded-full blur-3xl animate-pulse" />
           </div>
-          
-          <img 
+            <img 
             src={versusImg} 
             alt="VS"
             className="h-16 w-16 object-contain relative z-10 drop-shadow-[0_0_20px_rgba(251,146,60,0.5)]"
           />
-        </div>{/* Temuulen Image - Full size with intense fire effects */}
+        </div>
+
+        {/* Temuulen Image - Full size with intense fire effects */}
         <div className="relative h-96 sm:h-[500px] lg:h-[500px] overflow-hidden">
           {/* Smooth diffuse gradient background */}
           <div className="absolute inset-0 bg-gradient-radial from-fuchsia-950/25 via-fuchsia-950/10 via-50% to-transparent blur-2xl" />
