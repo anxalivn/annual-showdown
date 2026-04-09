@@ -87,7 +87,7 @@ const DEFAULT_ROOM_ID = 'tags-2026-showdown'
 
 const PLAYERS: Player[] = [
   { id: 'khangal', name: 'Khangal', tag: 'P1' },
-  { id: 'best-friend', name: 'Best Friend', tag: 'P2' },
+  { id: 'best-friend', name: 'Temuulen', tag: 'P2' },
 ]
 
 const GAME_POOL = [
@@ -119,7 +119,7 @@ const DRAFT_STEPS: DraftStep[] = [
   {
     type: 'ban',
     playerId: 'best-friend',
-    label: 'Step 2 — Best Friend bans 1 game',
+    label: 'Step 2 — Temuulen bans 1 game',
     description: 'The second rival answers with a counter-ban.',
   },
   {
@@ -131,7 +131,7 @@ const DRAFT_STEPS: DraftStep[] = [
   {
     type: 'pick',
     playerId: 'best-friend',
-    label: 'Step 4 — Best Friend picks Game 2',
+    label: 'Step 4 — Temuulen picks Game 2',
     description: 'The reply pick keeps the lineup balanced.',
   },
   {
@@ -143,7 +143,7 @@ const DRAFT_STEPS: DraftStep[] = [
   {
     type: 'pick',
     playerId: 'best-friend',
-    label: 'Step 6 — Best Friend picks Game 4',
+    label: 'Step 6 — Temuulen picks Game 4',
     description: 'The fourth slot finalizes each player’s choices.',
   },
   {
@@ -156,7 +156,7 @@ const DRAFT_STEPS: DraftStep[] = [
 const conceptPillars = [
   {
     title: 'Two rivals',
-    copy: 'Khangal vs Best Friend. No filler.',
+    copy: 'Khangal vs Temuulen. No filler.',
     icon: Swords,
   },
   {
@@ -288,7 +288,7 @@ function ArenaHeroGraphic() {
         </div>
         <div className="rounded-3xl border border-fuchsia-400/25 bg-fuchsia-500/10 px-4 py-5 text-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-fuchsia-200">Player 2</p>
-          <p className="mt-2 text-2xl font-black text-white">Best Friend</p>
+          <p className="mt-2 text-2xl font-black text-white">Temuulen</p>
         </div>
       </div>
 
@@ -519,7 +519,7 @@ function getGameStatusMeta(game: Game) {
 
   if (game.pickedBy === 'best-friend') {
     return {
-      label: 'Picked by Best Friend',
+      label: 'Picked by Temuulen',
       className: 'border-fuchsia-400/30 bg-fuchsia-500/10 text-fuchsia-100',
     }
   }
@@ -842,7 +842,7 @@ function App() {
       note: 'Championship wins so far',
     },
     {
-      label: 'Best Friend titles',
+      label: 'Temuulen titles',
       value: `${titleCounts[1].titles}`,
       note: 'Chasing the first crown',
     },
@@ -898,7 +898,7 @@ function App() {
             <div className="mt-6 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em]">
               <span className="rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-cyan-100">Khangal</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">VS</span>
-              <span className="rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1 text-fuchsia-100">Best Friend</span>
+              <span className="rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1 text-fuchsia-100">Temuulen</span>
             </div>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -1108,7 +1108,7 @@ function App() {
                   { label: 'Available', className: 'border-slate-700 bg-slate-950/70 text-slate-300' },
                   { label: 'Banned', className: 'border-rose-400/30 bg-rose-500/10 text-rose-100' },
                   { label: 'Picked by Khangal', className: 'border-cyan-400/30 bg-cyan-500/10 text-cyan-100' },
-                  { label: 'Picked by Best Friend', className: 'border-fuchsia-400/30 bg-fuchsia-500/10 text-fuchsia-100' },
+                  { label: 'Picked by Temuulen', className: 'border-fuchsia-400/30 bg-fuchsia-500/10 text-fuchsia-100' },
                   { label: 'Random Decider', className: 'border-amber-400/30 bg-amber-500/10 text-amber-100' },
                 ].map((badge) => (
                   <span key={badge.label} className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] ${badge.className}`}>
@@ -1181,7 +1181,7 @@ function App() {
               <span className="pb-2 text-2xl text-slate-500">:</span>
               <div>
                 <p className="text-4xl font-black text-fuchsia-100">{p2Wins}</p>
-                <p className="mt-1 text-sm text-slate-300">Best Friend</p>
+                <p className="mt-1 text-sm text-slate-300">Temuulen</p>
               </div>
             </div>
 
