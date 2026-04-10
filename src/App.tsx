@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import khangalImg from './assets/images/khangal.png'
 import temuulenImg from './assets/images/temuulen.png'
 import championbeltImg from './assets/images/championbelt.png'
-import versusImg from './assets/images/versus.png'
+import versusImg from './assets/images/versus.gif'
 import './App.css'
 import {
   BarChart3,
@@ -255,95 +255,88 @@ const GAME_ART: Record<string, { code: string; gradient: string; accent: string;
 function ArenaHeroGraphic() {
   return (
     <div className="relative overflow-visible">
-      {/* Background glow - circular, extends outside container */}
-      <div className="absolute inset-0 -z-10 pointer-events-none" style={{ transform: 'translateY(-50%)' }}>
-        {/* Inner glow - intense red/purple */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-red-500/50 via-fuchsia-500/30 to-transparent rounded-full blur-3xl" />
-        
-        {/* Outer glow - softer, wider spread */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-gradient-radial from-red-600/25 via-fuchsia-600/12 to-transparent rounded-full blur-2xl" />
-      </div>
-
-      {/* Full bleed hero with three columns - NO CONTAINER */}
-      <div className="grid grid-cols-[1fr_auto_1fr] bg-slate-950">{/* Khangal Image - Full size with intense fire effects */}
-        <div className="relative h-96 sm:h-[500px] lg:h-[500px] overflow-hidden">
-          {/* Smooth diffuse gradient background */}
-          <div className="absolute inset-0 bg-gradient-radial from-red-950/25 via-red-950/10 via-50% to-transparent blur-2xl" />
-          <div className="absolute inset-0 bg-gradient-radial from-orange-900/15 via-transparent to-transparent" />
-          
-          {/* Intense fire glow on left */}
-          <div className="absolute -bottom-20 -left-20 h-80 w-80 bg-gradient-radial from-orange-500/40 via-red-500/20 to-transparent rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-32 -left-32 h-96 w-96 bg-gradient-radial from-red-600/30 via-orange-600/10 to-transparent rounded-full blur-2xl pointer-events-none animate-pulse" />
-            {/* Player image */}
+      {/* Full bleed hero with three columns */}
+      <div className="grid grid-cols-[1fr_auto_1fr] relative">
+          {/* Khangal side - with overflow glow */}        <div className="relative h-96 sm:h-[500px] lg:h-[500px] overflow-visible flex items-center justify-center">
+          {/* Large pulsing glow behind - positioned outside container - RED for Khangal */}
+          <div className="absolute -inset-32 -z-10 pointer-events-none">
+            <div className="absolute inset-0 bg-gradient-radial from-red-500/70 via-red-600/40 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '2s' }} />
+            <div className="absolute inset-0 bg-gradient-radial from-rose-500/60 via-transparent to-transparent rounded-full blur-2xl animate-pulse" style={{ animationDelay: '0.5s', animationDuration: '2s' }} />
+          </div>
+            {/* Player image - transparent background will show through */}
           <img 
             src={khangalImg} 
             alt="Khangal" 
-            className="h-full w-full object-cover object-center relative z-10" 
+            className="h-4/5 w-auto object-contain relative z-10 drop-shadow-[0_0_50px_rgba(34,211,238,0.6)] drop-shadow-[0_0_30px_rgba(6,182,212,0.5)]" 
           />
           
-          {/* Text overlay at bottom with glow */}
-          <div className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-b from-transparent via-transparent to-slate-950 pb-4 text-center z-20">
+          {/* Text overlay at bottom */}
+          <div className="absolute inset-0 flex flex-col items-center justify-end pb-4 text-center z-20">
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-cyan-300 drop-shadow-lg">Player 1</p>
             <p className="mt-2 text-2xl font-black text-white drop-shadow-[0_0_20px_rgba(6,182,212,0.6)] animate-pulse">Khangal</p>
             <p className="mt-1 text-xs tracking-[0.2em] text-cyan-200 drop-shadow-lg">THE CHAMPION</p>
           </div>
-          
-          {/* Fire lines effect */}
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-orange-500/20 via-red-500/10 to-transparent pointer-events-none z-5" />
-        </div>        {/* VS Badge in center - INTENSE */}
-        <div className="flex items-center justify-center bg-slate-950 px-2 sm:px-3 relative overflow-hidden">
-          {/* Center fire effect */}
-          <div className="absolute inset-0 bg-gradient-radial from-orange-500/30 via-red-500/10 to-transparent rounded-full blur-2xl" />
-          <div className="absolute inset-0 opacity-50">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-radial from-yellow-400/40 to-transparent rounded-full blur-3xl animate-pulse" />
-          </div>
-            <img 
+        </div>        {/* VS Badge in center */}
+        <div className="flex items-center justify-center px-2 sm:px-3 relative overflow-visible">
+          {/* Pulsing glow around VS badge - yellow/amber with multiple layers - MORE PROMINENT */}
+          <div className="absolute -inset-24 -z-10 pointer-events-none">
+            <div className="absolute inset-0 bg-gradient-radial from-yellow-300/80 via-yellow-400/50 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '2s' }} />
+            <div className="absolute inset-0 bg-gradient-radial from-amber-400/70 via-orange-500/40 to-transparent rounded-full blur-2xl animate-pulse" style={{ animationDelay: '0.5s', animationDuration: '2s' }} />
+            <div className="absolute inset-0 bg-gradient-radial from-yellow-400/60 via-transparent to-transparent rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s', animationDuration: '2s' }} />
+          </div>            <img 
             src={versusImg} 
             alt="VS"
-            className="h-16 w-16 object-contain relative z-10 drop-shadow-[0_0_20px_rgba(251,146,60,0.5)]"
+            className="h-32 w-32 object-contain relative z-10 drop-shadow-[0_0_50px_rgba(217,70,239,0.6)] drop-shadow-[0_0_30px_rgba(232,121,250,0.5)] "
           />
-        </div>
-
-        {/* Temuulen Image - Full size with intense fire effects */}
-        <div className="relative h-96 sm:h-[500px] lg:h-[500px] overflow-hidden">
-          {/* Smooth diffuse gradient background */}
-          <div className="absolute inset-0 bg-gradient-radial from-fuchsia-950/25 via-fuchsia-950/10 via-50% to-transparent blur-2xl" />
-          <div className="absolute inset-0 bg-gradient-radial from-pink-900/15 via-transparent to-transparent" />
-          
-          {/* Intense fire glow on right */}
-          <div className="absolute -bottom-20 -right-20 h-80 w-80 bg-gradient-radial from-fuchsia-500/40 via-pink-500/20 to-transparent rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-32 -right-32 h-96 w-96 bg-gradient-radial from-pink-600/30 via-fuchsia-600/10 to-transparent rounded-full blur-2xl pointer-events-none animate-pulse" />
-            {/* Player image */}
+        </div>{/* Temuulen side - with overflow glow */}        <div className="relative h-96 sm:h-[500px] lg:h-[500px] overflow-visible flex items-center justify-center">
+          {/* Large pulsing glow behind - positioned outside container */}
+          <div className="absolute -inset-32 -z-10 pointer-events-none">
+            <div className="absolute inset-0 bg-gradient-radial from-fuchsia-500/60 via-pink-400/30 to-transparent rounded-full blur-3xl animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-radial from-purple-500/40 via-transparent to-transparent rounded-full blur-2xl animate-pulse" style={{ animationDelay: '0.5s' }} />
+          </div>
+            {/* Player image - transparent background will show through */}
           <img 
             src={temuulenImg} 
             alt="Temuulen" 
-            className="h-full w-full object-cover object-center relative z-10" 
+            className="h-4/5 w-auto object-contain relative z-10 drop-shadow-[0_0_50px_rgba(217,70,239,0.6)] drop-shadow-[0_0_30px_rgba(232,121,250,0.5)]" 
           />
           
-          {/* Text overlay at bottom with glow */}
-          <div className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-b from-transparent via-transparent to-slate-950 pb-4 text-center z-20">
+          {/* Text overlay at bottom */}
+          <div className="absolute inset-0 flex flex-col items-center justify-end pb-4 text-center z-20">
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-fuchsia-300 drop-shadow-lg">Player 2</p>
             <p className="mt-2 text-2xl font-black text-white drop-shadow-[0_0_20px_rgba(217,70,239,0.6)] animate-pulse">Temuulen</p>
             <p className="mt-1 text-xs tracking-[0.2em] text-fuchsia-200 drop-shadow-lg">THE RIVAL</p>
           </div>
-          
-          {/* Fire lines effect */}
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-pink-500/20 via-fuchsia-500/10 to-transparent pointer-events-none z-5" />
         </div>
-      </div>
+      </div>      {/* Footer Section - EPIC CHAMPIONSHIP FINALE */}
+      <div className="relative bg-gradient-to-b from-slate-950 via-red-950/30 to-slate-950 px-6 py-6 sm:py-8 text-center overflow-hidden border-t border-amber-500/20">
+        {/* Background fire effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-64 h-40 bg-gradient-radial from-red-600/30 via-orange-500/15 to-transparent blur-3xl animate-pulse" style={{ animationDuration: '3s' }} />
+          <div className="absolute top-0 right-0 w-64 h-40 bg-gradient-radial from-amber-600/25 via-red-500/10 to-transparent blur-3xl animate-pulse" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-red-950/15 via-transparent to-amber-950/15" />
+        </div>
 
-      {/* Footer Section - INTENSE with fire */}
-      <div className="relative bg-gradient-to-r from-red-950/30 via-slate-950 to-pink-950/30 px-6 py-4 text-center overflow-hidden">
-        {/* Background fire effect */}
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute top-0 left-1/4 w-64 h-24 bg-gradient-radial from-orange-500/30 to-transparent blur-3xl" />
-          <div className="absolute top-0 right-1/4 w-64 h-24 bg-gradient-radial from-pink-500/30 to-transparent blur-3xl" />
+        {/* Content */}
+        <div className="relative z-10 space-y-2 sm:space-y-3">
+          {/* Event meta */}
+          <div className="flex items-center justify-center gap-2 flex-wrap text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] text-amber-200/60">
+            <span>🏆 {EVENT_YEAR}</span>
+            <span className="w-1 h-1 rounded-full bg-amber-400/40" />
+            <span>04/18</span>
+            <span className="w-1 h-1 rounded-full bg-amber-400/40" />
+            <span>ANNUAL SHOWDOWN</span>
+          </div>
+
+         
+
+          {/* Subtitle */}
+          <p className="text-xs sm:text-sm text-amber-100 font-semibold drop-shadow-[0_0_20px_rgba(251,146,60,0.6)]">
+            Who is a better gamer?
+          </p>
         </div>
-        
-        <div className="relative z-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-300 drop-shadow-lg">{EVENT_YEAR} • 04/18 • ANNUAL SHOWDOWN</p>
-          <p className="mt-1 text-sm font-semibold text-white sm:text-base drop-shadow-[0_0_10px_rgba(251,146,60,0.4)]">Winner takes the crown.</p>
-        </div>
+
+      
       </div>
     </div>
   )
@@ -907,9 +900,8 @@ function App() {
     setResultByGame({})
   }
 
-
   return (
-    <main className="relative overflow-hidden pb-8 text-slate-100">
+    <main className="relative overflow-visible pb-8 text-slate-100">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.16),transparent_0,transparent_44%),radial-gradient(circle_at_right,rgba(168,85,247,0.16),transparent_0,transparent_40%)]" />
 
       <header className="section-shell pt-6">
@@ -961,11 +953,10 @@ function App() {
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">
               One rivalry. One BO5. One crown.
-            </p>            <div className="mt-6 flex flex-wrap items-center justify-start gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] sm:tracking-[0.28em]">
+            </p>            <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] sm:tracking-[0.28em]">
               <span className="rounded-full border border-cyan-400/30 bg-cyan-500/10 px-2 sm:px-3 py-1 text-cyan-100">Khangal</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-2 sm:px-3 py-1 text-slate-200">VS</span>
-              <span className="rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-2 sm:px-3 py-1 text-fuchsia-100">Temuulen</span>
-            </div>            <div className="mt-7 flex flex-wrap gap-2 sm:gap-3">
+              <span className="rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-2 sm:px-3 py-1 text-fuchsia-100">Temuulen</span>            </div><div className="mt-7 flex flex-wrap justify-center gap-2 sm:gap-3">
               <a
                 href="#draft"
                 className="inline-flex items-center gap-1 sm:gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-cyan-50 transition hover:-translate-y-0.5 hover:bg-cyan-500/20 whitespace-nowrap"
@@ -1002,18 +993,7 @@ function App() {
           <div className="space-y-4">
             <ArenaHeroGraphic />
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="glass-panel px-4 py-4">
-                <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">Live call</p>
-                <p className="mt-2 text-lg font-semibold text-white">{liveResultText}</p>
-              </div>
-              <div className="glass-panel px-4 py-4">
-                <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">Draft status</p>
-                <p className="mt-2 text-lg font-semibold text-white">
-                  {draftState.lineup.length > 0 ? `${draftState.lineup.length}/5 games locked` : 'Waiting for first pick'}
-                </p>
-              </div>
-            </div>
+          
           </div>
         </div>
       </section>
